@@ -7,7 +7,7 @@ const ws_server = createServer()
 const ALLOWED_DOMAINS = [config.get("frontend.clientUI"), config.get("frontend.adminUI")]
 
 
-const io = new Server(ws_server, { cors: { origin: ALLOWED_DOMAINS } })
+const io = new Server(ws_server, { cors: { origin: ALLOWED_DOMAINS as string[] } })
 
 io.on("connection", (socket) => {
     console.log("Client connected", socket.id);
