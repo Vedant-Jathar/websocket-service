@@ -1,9 +1,13 @@
 import { createServer } from "node:http";
 import { Server } from "socket.io"
+import config from "config"
 
 const ws_server = createServer()
 
-const io = new Server(ws_server, { cors: { origin: "http://localhost:5173" } })
+const ALLOWED_DOMAINS = [config.get("frontend.clientUI"), config.get("frontend.adminUI")]
+
+
+const io = new Server(ws_server, { cors: { origin: ALLOWED_DOMAINS } })
 
 io.on("connection", (socket) => {
     console.log("Client connected", socket.id);
